@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+</head>
+<body>
+    <h1>Edit Item</h1>
+
+    <form action="" method="POST">
+        <input type="text" name="new_item_name" value="{{ item.name }}" required>
+        <input type="text" name="new_item_quantity" value="{{item.quantity}}" required>
+        <input type="text" name="new_item_category" value="{{item.category}}">
+        <input type="submit" value="Save Changes">
+    </form>
+</body>
+</html>
