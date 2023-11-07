@@ -5,7 +5,6 @@
 {%block content%}    
 <div class="container mt-4">
         <h1>Inventory Management</h1>
-
         <form action="/add_item" method="POST" class="mb-3">
             <div class="form-group">
                 <input type="text" name="item_name" class="form-control" placeholder="Name" required>
@@ -14,7 +13,14 @@
                 <input type="text" name="item_quantity" class="form-control" placeholder="Quantity" required>
             </div>
             <div class="form-group">
-                <input type="text" name="item_category" class="form-control" placeholder="Category">
+                <input type="text" name="item_price" class="form-control" placeholder="Price" required>
+            </div>
+            <div class="form-group">
+                <select name="item_category" class="form-control">
+                    <option value="Baño">Baño</option>
+                    <option value="Comida">Comida</option>
+                    <option value="">Ninguna</option>
+                </select> 
             </div>
             <button type="submit" class="btn btn-primary">Add Item</button>
         </form>
@@ -26,15 +32,17 @@
                 <option value="Comida">Comida</option>
                 <!-- Add more category options as needed -->
             </select>
-            <button type="submit">Filter</button>
+            <button type="submit" class="btn btn-success">Filter</button>
         </form>
 
         <ul class="list-group">
             {% for item in items %}
                 <li class="list-group-item">
-                    <p class="mb-0">{{ item.name }} -- {{ item.quantity }}
+                    <p class="mb-0">{{ item.name }}:   {{ item.quantity }}
                         <a href="{{ url_for('edit_item', id=item.id) }}" class="btn btn-sm btn-info">Edit</a>
                         <a href="{{ url_for('delete_item', id=item.id) }}" class="btn btn-sm btn-danger">Delete</a>
+                        {{item.date}}
+                        ${{item.price}}
                     </p>
                 </li>
             {% endfor %}

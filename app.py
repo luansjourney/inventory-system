@@ -1,3 +1,5 @@
+import datetime
+from pytz import timezone
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
@@ -10,6 +12,8 @@ class Item(db.Model):
     name = db.Column(db.String(50), nullable=False)
     category = db.Column(db.String(25), nullable=True)
     quantity = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(timezone('America/Argentina/Buenos_Aires')))
+    price = db.Column(db.Float, nullable=True)
 
 
 #Routes
@@ -28,8 +32,9 @@ def add_item():
     item_name = request.form.get('item_name')
     item_quantity = request.form.get('item_quantity')
     item_category = request.form.get('item_category')
+    item_price = request.form.get('item_price')
     if item_name:
-        new_item = Item(name=item_name, quantity=item_quantity, category=item_category)
+        new_item = Item(name=item_name, quantity=item_quantity, category=item_category, price=item_price)
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('index'))
