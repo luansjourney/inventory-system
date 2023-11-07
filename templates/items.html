@@ -4,21 +4,7 @@
 {% endblock %}
 {%block content%}    
 <div class="container mt-4">
-        <h1>Inventory Management</h1>
-
-        <form action="/add_item" method="POST" class="mb-3">
-            <div class="form-group">
-                <input type="text" name="item_name" class="form-control" placeholder="Name" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="item_quantity" class="form-control" placeholder="Quantity" required>
-            </div>
-            <div class="form-group">
-                <input type="text" name="item_category" class="form-control" placeholder="Category">
-            </div>
-            <button type="submit" class="btn btn-primary">Add Item</button>
-        </form>
-
+        <h1>Stocked items</h1>
         <form action="/filter_by_category" method="POST">
             <select name="category" class="form-control">
                 <option value="" selected>All Categories</option>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -12,12 +12,16 @@ class Item(db.Model):
     quantity = db.Column(db.Integer, nullable=False)
 
 
-
-
+#Routes
 @app.route("/")
 def index():
     items = Item.query.all()
     return render_template('index.html', items=items)
+
+@app.route("/stock")
+def stock():
+    items = Item.query.all()
+    return render_template('items.html', items=items)
 
 @app.route('/add_item', methods=['POST'])
 def add_item():
@@ -52,6 +56,15 @@ def delete_item(id):
     db.session.delete(item)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/filter_by_category', methods=['POST'])
+def filter_by_category():
+    selected_category = request.form.get('category')
+    if selected_category == "":
+        items = Item.query.all()
+    else:
+        items = Item.query.filter_by(category=selected_category).all()
+    return render_template('index.html', items=items)
 
 if __name__ == '__main__':
     with app.app_context():
